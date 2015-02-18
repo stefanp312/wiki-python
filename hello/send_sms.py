@@ -1,43 +1,10 @@
-from flask import Flask, request, redirect, session
-import twilio.twiml
+# Download the twilio-python library from http://twilio.com/docs/libraries
+from twilio.rest import TwilioRestClient
 
-# The session object makes use of a secret key.
-SECRET_KEY = 'a secret key'
-app = Flask(__name__)
-app.config.from_object(__name__)
+# Find these values at https://twilio.com/user/account
+account_sid = "AC8ef56b14520c627f847567e3993f851d"
+auth_token = "c6be7446d9f82b30070cfc0e4031a091"
+client = TwilioRestClient(account_sid, auth_token)
 
-# Try adding your own number to this list!
-callers = {
-    "+14158675309": "Curious George",
-    "+14158675310": "Boots",
-    "+14158675311": "Virgil",
-    "+14168343783": "boooobs",
-}
-
-@app.route("/", methods=['GET', 'POST'])
-def hello_monkey():
-    """Respond with the number of text messages sent between two parties."""
-
-    counter = session.get('counter', 0)
-
-    # increment the counter
-    counter += 1
-
-    # Save the new counter value in the session
-    session['counter'] = counter
-
-    from_number = request.values.get('From')
-    if from_number in callers:
-        name = callers[from_number]
-    else:
-        name = "Monkey"
-
-    message = "".join([name, " has messaged ", request.values.get('To'), " ",
-        str(counter), " times."])
-    resp = twilio.twiml.Response()
-    resp.sms(message)
-
-    return str(resp)
-
-if __name__ == "__main__":
-    app.run(debug=True)
+message = client.messages.create(to="+14168343783", from_="+16475600383",
+                                     body="Hello there!")
