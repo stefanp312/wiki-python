@@ -7,7 +7,6 @@ app = Flask(__name__)
 callers = {
     "+14158675309": "Curious George",
     "+14158675310": "Boots",
-    "+14168343783": "Virgil",
 }
 
 @app.route("/", methods=['GET', 'POST'])
@@ -21,7 +20,8 @@ def hello_monkey():
         message = "Monkey, thanks for the message!"
 
     resp = twilio.twiml.Response()
-    resp.message(message)
+    with resp.message(message) as
+        m.media("https://demo.twilio.com/owl.png")
 
     return str(resp)
 
