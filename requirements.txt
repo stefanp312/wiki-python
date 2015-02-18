@@ -7,3 +7,11 @@ psycopg2==2.5.3
 static3==0.5.1
 wsgiref==0.1.2
 requests==2.3.0
+aylien-apiclient==0.2.0
+beautifulsoup4==4.3.2
+httplib2==0.9
+six==1.9.0
+twilio==3.6.15
+vboxapi==1.0
+virtualenv==12.0.7
+wikipedia==1.4.0
