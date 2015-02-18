@@ -1,16 +1,8 @@
-from flask import Flask, request, redirect
-import twilio.twiml
+import os
+from flask import Flask
 
 app = Flask(__name__)
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route('/')
 def hello():
-    """Respond to incoming calls with a simple text message."""
-
-    resp = twilio.twiml.Response()
-    resp.message("Hello, Mobile Monkey") as m:
-        m.media("https://demo.twilio.com/owl.png")
-    return str(resp)
-
-if __name__ == "__main__":
-    app.run(debug=True)
+    return 'Hello World!'
