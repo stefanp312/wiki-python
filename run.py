@@ -16,7 +16,6 @@ def main_reply():
     recieved_message = request.values.get('Body')
     resp = twilio.twiml.Response()
     resp.message(recieved_message)
-    resp.media_url("https://www.stefanpleava.com/images/69mz.jpg")
     return str(resp)
 
 if __name__ == "__main__":
