@@ -15,8 +15,8 @@ def main_reply():
     from_number = request.values.get('From', None)
     recieved_message = request.values.get('Body')
     resp = twilio.twiml.Response()
-    with resp.message(recieved_message) as m:
-        m.media("https://demo.twilio.com/owl.png")
+    resp.message(recieved_message)
+    resp.media_url("http://upload.wikimedia.org/wikipedia/meta/6/6d/Wikipedia_wordmark_1x.png")
     return str(resp)
 
 if __name__ == "__main__":
