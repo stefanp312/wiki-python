@@ -13,7 +13,8 @@ def main_reply():
     recieved_message = request.values.get('Body')
 
     reply = searchWikipedia(query=recieved_message)
-
+    if len(reply)>160:
+        reply="too longg" 
     resp = twilio.twiml.Response()
     resp.message(reply)
     return str(resp)
