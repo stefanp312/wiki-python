@@ -22,9 +22,10 @@ def main_reply():
 def searchWikipedia(query):
     summary = ""
     try:
-        summary = wikipedia.summary(query, sentences = 2)
+        summary = wikipedia.summary(query, sentences = 1)
     except wikipedia.exceptions.DisambiguationError as e:
-        return "That can refer to multiple things. Which did you mean? " + ", ".join(e.options)
+        #return "That can refer to multiple things. Which did you mean? " + ", ".join(e.options)
+        summary = wikipedia.summary(e.options[1], sentences = 1)
     return summary
 
 if __name__ == "__main__":
