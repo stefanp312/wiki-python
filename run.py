@@ -8,39 +8,39 @@ app.config.from_object(__name__)
 
 # Try adding your own number to this list!
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/", methods = ['GET', 'POST'])
 def main_reply():
-    
     from_number = request.values.get('From', None)
+    print from_number
     recieved_message = request.values.get('Body')
 
-    #create cmds variable from cookies
+    # create cmds variable from cookies
     cmds = session.get('cmds', [""])
-    searchs = session.get('searchs', [["",0]])
+    searchs = session.get('searchs', [["", 0]])
 
     if "image" in recieved_message:
-        #send the wikipedia page iamge
+        # send the wikipedia page iamge
         print "not working"
     elif "more" in recieved_message:
         # query wikipedia with the recieved message and get next sentence
         cmds.append("more")
-        lastSearch = searchs[len(searchs)-1]
-        print lastSearch
-        lastCharacterSeen = lastSearch[1]
-        print lastCharacterSeen
-        reply = searchWikipedia(query=recieved_message,4)
-        nextStringIndex =  reply.index(". ", beg=lastCharacterSeen)
-        reply = reply[lastCharacterSeen:nextStringIndex]
+        last_search = searchs[len(searchs) - 1]
+        print last_search
+        last_character_seen = last_search[1]
+        print last_character_seen
+        reply = searchwikipedia(query=recieved_message, sentences=4)
+        next_search_index = reply.index(". ", beg=last_character_seen)
+        reply = reply[last_character_seen:next_search_index]
     else:
         # query wikipedia with the recieved message
-        reply = searchWikipedia(query=recieved_message)
-        searchs.append([recieved_message,len(reply)])
+        reply = searchwikipedia(query=recieved_message)
+        searchs.append([recieved_message, len(reply)])
 
-    #trim the length of the reply to one text
-    if len(reply)>160:
-        reply=reply[0:159]
+    # trim the length of the reply to one text
+    if len(reply) > 160:
+        reply = reply[0:159]
 
-    #get the response scheme from twilio and add reply as message body
+    # get the response scheme from twilio and add reply as message body
     resp = twilio.twiml.Response()
     resp.message(reply)
 
@@ -52,13 +52,13 @@ def main_reply():
 
     return str(resp)
 
-def searchWikipedia(query, sentences = 1):
+def searchwikipedia(query, sentences=1):
     summary = ""
     try:
-        summary = wikipedia.summary(query, sentences = sentences)
+        summary = wikipedia.summary(query, sentences=sentences)
     except wikipedia.exceptions.DisambiguationError as e:
-        #return "That can refer to multiple things. Which did you mean? " + ", ".join(e.options)
-        summary = wikipedia.summary(e.options[1], sentences = sentences)
+        # + ", ".join(e.options)
+        summary = wikipedia.summary(e.options[1], sentences=sentences)
     return summary
 
 if __name__ == "__main__":
