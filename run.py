@@ -31,6 +31,7 @@ def main_reply():
         reply = searchwikipedia(query=recieved_message, sentences=4)
         next_search_index = reply.index(". ", beg=last_character_seen)
         reply = reply[last_character_seen:next_search_index]
+        print reply
     else:
         # query wikipedia with the recieved message
         reply = searchwikipedia(query=recieved_message)
