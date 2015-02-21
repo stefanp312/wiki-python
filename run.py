@@ -12,16 +12,20 @@ def main_reply():
     
     from_number = request.values.get('From', None)
     recieved_message = request.values.get('Body')
-    counter = session.get('counter',0)
+    counter = session.get('counter', 0)
+ 
+    # increment the counter
+    counter += 1
+ 
+    # Save the new counter value in the session
+    session['counter'] = counter
 
     reply = searchWikipedia(query=recieved_message)
     if len(reply)>160:
         reply=reply[0:159]
     resp = twilio.twiml.Response()
     resp.message(reply)
-
-    counter+=1
-    session['counter']=counter
+    
     print reply
     print counter
     return str(resp)
