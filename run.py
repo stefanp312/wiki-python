@@ -4,6 +4,7 @@ import wikipedia
 
 SECRET_KEY = 'donuts'
 app = Flask(__name__)
+app.config.from_object(__name__)
 
 # Try adding your own number to this list!
 
@@ -25,7 +26,7 @@ def main_reply():
         reply=reply[0:159]
     resp = twilio.twiml.Response()
     resp.message(reply)
-    
+
     print reply
     print counter
     return str(resp)
