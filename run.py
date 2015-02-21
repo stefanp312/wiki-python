@@ -18,8 +18,7 @@ def main_reply():
     resp = twilio.twiml.Response()
     resp.message(reply)
 
-    for message in client.messages:
-        print message.body
+    print "Test this shit"
     return str(resp)
 
 def searchWikipedia(query):
