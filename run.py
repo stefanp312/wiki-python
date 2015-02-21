@@ -21,7 +21,7 @@ def main_reply():
     if "image" in recieved_message:
         #send the wikipedia page iamge
         print "not working"
-    else if "more" in recieved_message:
+    elif "more" in recieved_message:
         # query wikipedia with the recieved message and get next sentence
         cmds.append("more")
         lastSearch = searchs[len(searchs)-1]
